@@ -1,0 +1,7 @@
+build:
+  main: ./cmd/main/main.go
+  goarch:
+    - amd64
+brew:
+  repo: caarlos0/homebrew-tap
+  folder: Formula
