@@ -1,1 +1,13 @@
-{}
+{
+    "dependencies": {
+        "github.com/caarlos0/spin": {
+            "version": "^1.0.0"
+        },
+        "github.com/stretchr/testify": {
+            "version": "^1.1.4"
+        },
+        "github.com/urfave/cli": {
+            "version": "^1.19.1"
+        }
+    }
+}
