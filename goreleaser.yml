@@ -3,5 +3,7 @@ build:
   goarch:
     - amd64
 brew:
-  repo: caarlos0/homebrew-tap
+  github:
+    owner: caarlos0
+    name: homebrew-tap
   folder: Formula
