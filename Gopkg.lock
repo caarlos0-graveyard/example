@@ -1,0 +1,31 @@
+memo = "9262e5b5d094162d81a1db194b6985b19c47c39b79df6e8239e75d5cabf8378a"
+
+[[projects]]
+  name = "github.com/caarlos0/spin"
+  packages = ["."]
+  revision = "f1f63cceace559408b09577f25210edb9b2215c3"
+  version = "v1.0.0"
+
+[[projects]]
+  name = "github.com/davecgh/go-spew"
+  packages = ["spew"]
+  revision = "346938d642f2ec3594ed81d874461961cd0faa76"
+  version = "v1.1.0"
+
+[[projects]]
+  name = "github.com/pmezard/go-difflib"
+  packages = ["difflib"]
+  revision = "c0b812dadcf4498dede02bb7f0c5c478be997e34"
+  version = "v1.0.0"
+
+[[projects]]
+  name = "github.com/stretchr/testify"
+  packages = ["assert"]
+  revision = "69483b4bd14f5845b5a1e55bca19e954e827f1d0"
+  version = "v1.1.4"
+
+[[projects]]
+  name = "github.com/urfave/cli"
+  packages = ["."]
+  revision = "0bdeddeeb0f650497d603c4ad7b20cfe685682f6"
+  version = "v1.19.1"
