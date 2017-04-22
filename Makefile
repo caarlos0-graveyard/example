@@ -1,6 +1,6 @@
 SOURCE_FILES?=$$(go list ./... | grep -v /vendor/)
 TEST_PATTERN?=.
-TEST_OPTIONS?=
+TEST_OPTIONS?=-race
 
 setup: ## Install all the build and lint dependencies
 	go get -u github.com/alecthomas/gometalinter
@@ -39,6 +39,9 @@ ci: lint test ## Run all the tests and code checks
 
 build: ## Build a beta version
 	go build -o example ./cmd/example/main.go
+
+install: ## Install to $GOPATH/src
+	go install ./cmd/...
 
 # Absolutely awesome: http://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 help:
