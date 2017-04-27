@@ -1,0 +1,29 @@
+#!/bin/bash
+owner="$1"
+repo="$(echo "$2" | tr '[:upper:]' '[:lower:]')"
+name="$2"
+
+SED="sed"
+if which gsed; then
+  SED="gsed"
+fi
+
+find . -type f | grep -v vendor | grep -v '.git' | while read -r file; do
+    sed -i'.old' \
+      -e "s/caarlos0\/example/$owner\/$repo/g" \
+      -e "s/example/$repo/g" \
+      -e "s/Example/$name/g" \
+      $file
+  done
+find . -name '*.old' -delete
+mv example.go "$repo.go"
+mv example_test.go "${repo}_test.go"
+mv cmd/example "cmd/$repo"
+rm -rf .git
+rm -rf script
+git init
+git remote add origin "git@github.com:$owner/$repo.git"
+git add -A
+git commit -m 'MyApp first commit!'
+make setup
+git push origin master
