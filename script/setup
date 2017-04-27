@@ -26,4 +26,3 @@ git remote add origin "git@github.com:$owner/$repo.git"
 git add -A
 git commit -m 'MyApp first commit!'
 make setup
-git push origin master
