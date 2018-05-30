@@ -1,9 +1,19 @@
+sudo: required
 language: go
-go: 1.8.1
-install: make setup
+go: '1.10'
+# services:
+#   - docker
+install:
+  - make setup
+  # - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 script: make ci
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-  - test -n "$TRAVIS_TAG" && curl -sL http://git.io/goreleaser | bash
 notifications:
   email: false
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: curl -sL http://git.io/goreleaser | bash
+    on:
+      tags: true

@@ -9,7 +9,7 @@ if which gsed; then
 fi
 
 find . -type f | grep -v vendor | grep -v '.git' | while read -r file; do
-    sed -i'.old' \
+    $SED -i'.old' \
       -e "s/caarlos0\/example/$owner\/$repo/g" \
       -e "s/example/$repo/g" \
       -e "s/Example/$name/g" \

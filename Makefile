@@ -1,37 +1,33 @@
 SOURCE_FILES?=./...
 TEST_PATTERN?=.
-TEST_OPTIONS?=-race
+TEST_OPTIONS?=
+OS=$(shell uname -s)
 
-setup: ## Install all the build and lint dependencies
-	go get -u github.com/alecthomas/gometalinter
-	go get -u github.com/golang/dep/...
-	go get -u github.com/pierrre/gotestcover
-	go get -u golang.org/x/tools/cmd/cover
-	dep ensure
-	gometalinter --install --update
+export PATH := ./bin:$(PATH)
 
-test: ## Run all the tests
-	gotestcover $(TEST_OPTIONS) -covermode=atomic -coverprofile=coverage.txt $(SOURCE_FILES) -run $(TEST_PATTERN) -timeout=30s
+# Install all the build and lint dependencies
+setup:
+	curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh
+ifeq ($(OS), Darwin)
+	brew install dep
+else
+	curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+endif
+	dep ensure -vendor-only
+.PHONY: setup
 
-cover: test ## RUn all the tests and opens the coverage report
-	go tool cover -html=coverage.txt
+test:
+	go test $(TEST_OPTIONS) -v -failfast -race -coverpkg=./... -covermode=atomic -coverprofile=coverage.out $(SOURCE_FILES) -run $(TEST_PATTERN) -timeout=2m
 
-fmt: ## gofmt and goimports all go files
+cover: test
+	go tool cover -html=coverage.out
+
+fmt:
 	find . -name '*.go' -not -wholename './vendor/*' | while read -r file; do gofmt -w -s "$$file"; goimports -w "$$file"; done
 
-lint: ## Run all the linters
-	gometalinter --vendor ./...
+lint:
+	golangci-lint run --enable-all ./...
 
-ci: lint test ## Run all the tests and code checks
-
-build: ## Build a beta version
-	go build -o example ./cmd/example/main.go
-
-install: ## Install to $GOPATH/src
-	go install ./cmd/...
-
-# Absolutely awesome: http://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
-help:
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+ci: lint test
 
 .DEFAULT_GOAL := build

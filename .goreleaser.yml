@@ -1,0 +1,16 @@
+build:
+  goarch:
+    - amd64
+  env:
+    - CGO_ENABLED=0
+brew:
+  github:
+    owner: caarlos0
+    name: homebrew-tap
+  folder: Formula
+# dockers:
+#   - image: caarlos0/example
+#     tag_templates:
+#     - latest
+#     - "{{ .Tag }}"
+#     - "v{{ .Major }}"
