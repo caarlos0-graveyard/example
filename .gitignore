@@ -1,4 +1,5 @@
-vendor
-coverage.txt
-dist
+vendor/
+dist/
+bin/
+coverage.out
 example
