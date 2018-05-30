@@ -1,8 +1,9 @@
-build:
-  goarch:
-    - amd64
-  env:
-    - CGO_ENABLED=0
+builds:
+  - main: ./cmd/example/main.go
+    goarch:
+      - amd64
+    env:
+      - CGO_ENABLED=0
 brew:
   github:
     owner: caarlos0
